@@ -1,0 +1,80 @@
+body {
+  text-align: left;
+  background: #eee;
+}
+
+h1 {
+  text-align: center;
+  text-shadow: none;
+  color: #000;
+  font-size: 48px;
+}
+
+.liste_fichiers {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  justify-content: center;
+}
+
+.liste_fichiers li {
+  position: relative;
+  text-align: center;
+  width: 350px;
+  height: 250px;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  cursor: pointer;
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  transition: .3s;
+}
+
+.liste_fichiers li:hover {
+  padding: 30px;
+  margin: 10px;
+}
+
+.liste_fichiers li::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #eee;
+  border-radius: 10px;
+  box-shadow: -12px -12px 20px rgba(255, 255, 255, 0.8), 12px 12px 20px rgba(0, 0, 0, 0.2);
+  z-index: -1;
+  filter: blur(2px);
+}
+
+.liste_fichiers li::first-letter {
+  text-transform: capitalize;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #333;
+  }
+
+  h1 {
+    color: #ddd;
+  }
+
+  .liste_fichiers li {
+    color: #ddd;
+  }
+
+  .liste_fichiers li::before {
+    background: #333;
+    box-shadow: -12px -12px 20px rgba(0, 0, 0, 0.8), 12px 12px 20px rgba(128, 128, 128, 0.2);
+  }
+}
