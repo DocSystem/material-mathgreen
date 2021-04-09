@@ -20,7 +20,8 @@ section.posts, section.sidebar, article.post:not(:first-of-type:not(article.post
 }
 
 section.posts, section.sidebar {
-  height: 500px !important;
+  min-height: 500px !important;
+  height: auto !important;
 }
 
 section.sidebar header {
@@ -92,4 +93,37 @@ header h1 {
 
 .navBar a:hover {
   opacity: .9;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #333;
+    color: #ddd;
+  }
+
+  h1 {
+    color: #ddd !important;
+  }
+
+  a {
+    color: #3498db;
+  }
+
+  .navBar a {
+    background: #2980b9;
+  }
+
+  .liste_fichiers li {
+    color: #ddd;
+  }
+
+  section.posts, section.sidebar, article.post:not(:first-of-type:not(article.post:first-of-type > article.post)) {
+    background: #333 !important;
+    color: #ddd !important;
+  }
+
+  section.posts::before, section.sidebar::before, article.post:not(:first-of-type:not(article.post:first-of-type > article.post))::before {
+    background: #333 !important;
+    box-shadow: -12px -12px 20px rgba(30, 30, 30, 0.8), 12px 12px 20px rgba(128, 128, 128, 0.2) !important;
+  }
 }

@@ -75,6 +75,6 @@ h1 {
 
   .liste_fichiers li::before {
     background: #333;
-    box-shadow: -12px -12px 20px rgba(0, 0, 0, 0.8), 12px 12px 20px rgba(128, 128, 128, 0.2);
+    box-shadow: -12px -12px 20px rgba(30, 30, 30, 0.8), 12px 12px 20px rgba(128, 128, 128, 0.2);
   }
 }

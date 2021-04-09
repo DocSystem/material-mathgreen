@@ -1,6 +1,6 @@
 {
   "name": "Material Mathgreen",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A better mathgreen",
   "permissions": [  ],
   "content_scripts": [
