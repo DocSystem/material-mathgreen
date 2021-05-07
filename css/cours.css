@@ -1,0 +1,136 @@
+body {
+  text-align: left;
+  color: #333;
+  background-color: #e0e0e0;
+  font-family: arial;
+}
+
+h1 {
+  text-align: center;
+  text-shadow: none;
+  color: #000;
+  font-size: 2em;
+}
+
+.liste_fichiers {
+  width: max-content;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  position: relative;
+  top: 20px;
+  margin: auto;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+.liste_fichiers li {
+  width: 320px;
+  height: 320px;
+  text-align: center;
+  margin: 20px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  transition: .5s;
+  position: relative;
+  font-size: 28px;
+  line-height: 40px;
+  color: #999 !important;
+  font-weight: bold;
+}
+
+.liste_fichiers li p {
+  margin: 0;
+  padding: 15px;
+  font-size: 28px;
+  line-height: 40px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.liste_fichiers li:hover {
+  color: #bebebe !important;
+}
+
+.liste_fichiers li::before {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #e0e0e0;
+  box-shadow: 6px 6px 12px 0 rgba(0, 0, 0, 0.2),
+    -6px -6px 12px 0 rgba(255, 255, 255, 0.5);
+  border-radius: 25px;
+  filter: blur(2px);
+}
+
+.liste_fichiers li:hover::before {
+  box-shadow: inset 6px 6px 10px 0 rgba(0, 0, 0, 0.2),
+    inset -6px -6px 10px 0 rgba(255, 255, 255, 0.5);
+  animation-name: neumorphictransitionlight;
+  animation-duration: .25s;
+}
+
+.liste_fichiers li::first-letter {
+  text-transform: capitalize;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #313333;
+    color: #eee;
+  }
+
+  h1 {
+    color: #ddd;
+  }
+
+  .liste_fichiers li {
+    color: #ddd;
+  }
+
+  .liste_fichiers li::before {
+    background: #333;
+    box-shadow: 6px 6px 12px 0 rgba(0, 0, 0, 0.2),
+      -6px -6px 12px 0 rgba(70, 70, 70, 0.5);
+  }
+
+  .liste_fichiers li:hover::before {
+    box-shadow: inset 6px 6px 10px 0 rgba(0, 0, 0, 0.2),
+      inset -6px -6px 10px 0 rgba(70, 70, 70, 0.5);
+    animation-name: neumorphictransitiondark;
+  }
+}
+
+@keyframes neumorphictransitionlight {
+  0% {
+    box-shadow: 6px 6px 12px 0 rgba(0, 0, 0, 0.2),
+      -6px -6px 12px 0 rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: inset 6px 6px 10px 0 rgba(0, 0, 0, 0.2),
+      inset -6px -6px 10px 0 rgba(255, 255, 255, 0.5);
+  }
+}
+@keyframes neumorphictransitiondark {
+  0% {
+    box-shadow: 6px 6px 12px 0 rgba(0, 0, 0, 0.2),
+      -6px -6px 12px 0 rgba(70, 70, 70, 0.5);
+  }
+  50% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: inset 6px 6px 10px 0 rgba(0, 0, 0, 0.2),
+      inset -6px -6px 10px 0 rgba(70, 70, 70, 0.5);
+  }
+}
