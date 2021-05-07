@@ -47,7 +47,11 @@ function patchHome(docRoot) {
   visitMessage = visitMessage.querySelector("p");
   docRoot.querySelector("strong").nextSibling.parentNode.removeChild(docRoot.querySelector("strong").nextSibling);
   docRoot.querySelector("strong").parentNode.removeChild(docRoot.querySelector("strong"));
-  docRoot.body.innerHTML = `<svg width="100%" height="200"><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%"   stop-color="#0B45EF"/><stop offset="100%" stop-color="#2DD2DC"/></linearGradient><rect x="0" y="0" width="100%" height="200" fill="url(#gradient)"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160"><defs><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%"   stop-color="#0B45EF"/><stop offset="100%" stop-color="#2DD2DC"/></linearGradient></defs><path fill="url(#gradient)" d="M0,160L48,138.7C96,117,192,75,288,48C384,21,480,11,576,26.7C672,43,768,85,864,117.3C960,149,1056,171,1152,154.7C1248,139,1344,85,1392,58.7L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"/></svg>` + document.body.innerHTML;
+  var topGradiant = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160"><defs><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%"   stop-color="#0B45EF"/><stop offset="100%" stop-color="#2DD2DC"/></linearGradient></defs><path fill="url(#gradient)" d="M0,160L48,138.7C96,117,192,75,288,48C384,21,480,11,576,26.7C672,43,768,85,864,117.3C960,149,1056,171,1152,154.7C1248,139,1344,85,1392,58.7L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"/></svg><svg width="100%" height="200"><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%"   stop-color="#0B45EF"/><stop offset="100%" stop-color="#2DD2DC"/></linearGradient><rect x="0" y="0" width="100%" height="200" fill="url(#gradient)"/></svg>`;
+  topGradiant = parser.parseFromString(topGradiant, "text/html");
+  topGradiant.querySelectorAll("svg").forEach((i) => {
+    docRoot.body.prepend(i);
+  });
   var oldNav = docRoot.querySelector("#navMenu");
   var newNav = docRoot.createElement("nav");
   newNav.className = "navBar";
@@ -133,16 +137,6 @@ function patchCours(pageName, pageFullName, docRoot) {
 
 function changePage(url) {
   document.location.href=url;
-}
-
-window.onpopstate = function (e) {
-  var url = document.location.href;
-  document.open("text/html", "replace");
-  document.write(savedPages[url]);
-  document.close();
-  pathname = document.location.pathname;
-  patchCSS(document, pathname);
-  patchPage(document, pathname);
 }
 
 patchPage(document, pathname);
