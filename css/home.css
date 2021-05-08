@@ -100,24 +100,70 @@ header h1 {
   text-shadow: none;
 }
 
-.navBar {
+nav.nav_menu {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  left: -300px;
+  width: 300px;
+  z-index: 16;
+  transition: .3s;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
 }
 
-.navBar a {
-  background: #3498db;
-  padding: 10px;
-  border-radius: 5px;
-  color: #fff;
-  margin: 2px;
+nav.nav_menu.nav_open {
+  left: 0;
+  background: #e0e0e0;
+  box-shadow: 1px 0 4px #000;
+}
+
+nav.nav_menu a {
+  padding: 10px 0;
+  margin: 15px 5px 0 5px;
+  color: #333;
+  font-size: 24px;
   text-decoration: none;
-  transition: .2s;
+  border-radius: 5px;
+  z-index: 1;
+  position: relative;
 }
 
-.navBar a:hover {
-  opacity: .9;
+nav.nav_menu a:hover::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  border-radius: 5px;
+  box-shadow: 6px 6px 12px 0 rgb(0 0 0 / 20%), -6px -6px 12px 0 rgb(255 255 255 / 50%);
+  filter: blur(2px);
+  content: "";
+}
+
+#navcloser {
+  position: relative;
+  left: 10px;
+  top: 10px;
+  color: #999;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  font-size: 30px;
+}
+
+#navopener {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  color: #999;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  font-size: 30px;
 }
 
 .sidebar a {
@@ -160,8 +206,17 @@ a {
     color: #0a84ff;
   }
 
-  .navBar a {
-    background: #2980b9;
+  nav.nav_menu.nav_open {
+    background: #313333;
+  }
+
+  nav.nav_menu a {
+    color: #eee;
+  }
+
+  nav.nav_menu a:hover::before {
+    background: #333;
+    box-shadow: 6px 6px 12px 0 rgba(0, 0, 0, 0.2), -6px -6px 12px 0 rgba(70, 70, 70, 0.5);
   }
 
   .liste_fichiers li {
@@ -175,7 +230,6 @@ a {
 
   section.posts::before, section.sidebar::before, article.post:not(:first-of-type:not(article.post:first-of-type > article.post))::before, header.posts_header::before {
     background: #333 !important;
-    box-shadow: 6px 6px 12px 0 rgba(0, 0, 0, 0.2),
-      -6px -6px 12px 0 rgba(70, 70, 70, 0.5) !important;
+    box-shadow: 6px 6px 12px 0 rgba(0, 0, 0, 0.2), -6px -6px 12px 0 rgba(70, 70, 70, 0.5) !important;
   }
 }

@@ -2,6 +2,10 @@ var pathname = document.location.pathname;
 
 var savedPages = {};
 
+if (document.location.protocol == "http:") {
+  document.location.protocol = "https:";
+}
+
 function patchCSS(docRoot, pathname) {
   var link = docRoot.createElement("link");
   if (pathname == "/NSI.html" || pathname == "/Premiere.html" || pathname == "/Terminale.html" || pathname == "/mathexp.html" || pathname == "/BCPST.html") {
@@ -9,6 +13,11 @@ function patchCSS(docRoot, pathname) {
   }
   else if (pathname == "/") {
     link.href = chrome.extension.getURL("css/home.css");
+    var faCss = docRoot.createElement("link")
+    faCss.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css";
+    faCss.type = "text/css";
+    faCss.rel = "stylesheet";
+    docRoot.querySelector("head").appendChild(faCss);
   }
   link.type = "text/css";
   link.rel = "stylesheet";
@@ -40,13 +49,15 @@ function patchPage(docRoot, pathname) {
 
 function patchHome(docRoot) {
   docRoot.title = "Mathgreen";
-  docRoot.querySelector("marquee").setAttribute("direction", "left");
   var visitMessage = "<p><strong>" + docRoot.documentElement.outerHTML.split("<strong>")[1].split("\n\n")[0] + "</p>";
   var parser = new DOMParser();
   visitMessage = parser.parseFromString(visitMessage, "text/html");
   visitMessage = visitMessage.querySelector("p");
   docRoot.querySelector("strong").nextSibling.parentNode.removeChild(docRoot.querySelector("strong").nextSibling);
   docRoot.querySelector("strong").parentNode.removeChild(docRoot.querySelector("strong"));
+  var marqueeText = docRoot.querySelector("marquee");
+  marqueeText.setAttribute("direction", "left");
+  marqueeText.parentNode.removeChild(marqueeText);
   var topGradiant = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160"><defs><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%"   stop-color="#0B45EF"/><stop offset="100%" stop-color="#2DD2DC"/></linearGradient></defs><path fill="url(#gradient)" d="M0,160L48,138.7C96,117,192,75,288,48C384,21,480,11,576,26.7C672,43,768,85,864,117.3C960,149,1056,171,1152,154.7C1248,139,1344,85,1392,58.7L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"/></svg><svg width="100%" height="200"><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%"   stop-color="#0B45EF"/><stop offset="100%" stop-color="#2DD2DC"/></linearGradient><rect x="0" y="0" width="100%" height="200" fill="url(#gradient)"/></svg>`;
   topGradiant = parser.parseFromString(topGradiant, "text/html");
   topGradiant.querySelectorAll("svg").forEach((i) => {
@@ -54,16 +65,22 @@ function patchHome(docRoot) {
   });
   var oldNav = docRoot.querySelector("#navMenu");
   var newNav = docRoot.createElement("nav");
-  newNav.className = "navBar";
+  newNav.className = "nav_menu";
+  var navCloseButton = docRoot.createElement("div");
+  navCloseButton.id = "navcloser";
+  navCloseButton.classList.add("fas");
+  navCloseButton.classList.add("fa-times");
+  navCloseButton.addEventListener("click", (e) => {
+    newNav.classList.remove("nav_open");
+  });
+  newNav.appendChild(navCloseButton);
   docRoot.querySelectorAll("#navMenu > ul > li").forEach((i) => {
     var partTitle = i.children[0].innerText;
     if (i.children[1].children.length == 1) {
       var url = i.children[1].children[0].children[0].href
       var newButton = docRoot.createElement("a");
       newButton.innerText = partTitle;
-      newButton.addEventListener("click", () => {
-        changePage(url);
-      });
+      newButton.href = url;
       newNav.appendChild(newButton);
     }
     else {
@@ -73,16 +90,22 @@ function patchHome(docRoot) {
           var url = i.children[1].children[si].children[0].href;
           var newButton = docRoot.createElement("a");
           newButton.innerText = partTitle + " - " + subPartTitle;
-          newButton.addEventListener("click", () => {
-            changePage(url);
-          });
+          newButton.href = url;
           newNav.appendChild(newButton);
         }
       }
     }
   });
-  docRoot.querySelector("header").appendChild(newNav);
+  docRoot.body.appendChild(newNav);
   oldNav.parentNode.removeChild(oldNav);
+  var navOpenButton = docRoot.createElement("div");
+  navOpenButton.id = "navopener";
+  navOpenButton.classList.add("fas");
+  navOpenButton.classList.add("fa-bars");
+  navOpenButton.addEventListener("click", (e) => {
+    newNav.classList.add("nav_open");
+  });
+  docRoot.body.appendChild(navOpenButton);
   var newMain = docRoot.createElement("div");
   newMain.className = "mainContent";
   var oldPosts = docRoot.querySelector("section.posts");
