@@ -29,22 +29,35 @@ patchCSS(document, pathname);
 function patchPage(docRoot, pathname) {
   if (pathname == "/NSI.html") {
     patchCours("NSI", "Cours - Numérique et Sciences Informatiques", docRoot);
+    patchMobile(docRoot);
   }
   else if (pathname == "/Premiere.html") {
     patchCours("Première", "Première : Cours & Exercices", docRoot);
+    patchMobile(docRoot);
   }
   else if (pathname == "/Terminale.html") {
     patchCours("Terminale Spécialité", "Terminale : Spécialité", docRoot);
+    patchMobile(docRoot);
   }
   else if (pathname == "/mathexp.html") {
     patchCours("Math expertes", "Terminale : Maths expertes", docRoot);
+    patchMobile(docRoot);
   }
   else if (pathname == "/BCPST.html") {
     patchCours("BCPST", "Activités : BCPST", docRoot);
+    patchMobile(docRoot);
   }
   else if (pathname == "/") {
     patchHome(docRoot);
+    patchMobile(docRoot);
   }
+}
+
+function patchMobile(docRoot) {
+  var mobileViewMeta = docRoot.createElement("meta");
+  mobileViewMeta.setAttribute("name", "viewport");
+  mobileViewMeta.setAttribute("content", "width=device-width, initial-scale=1");
+  docRoot.querySelector("head").appendChild(mobileViewMeta);
 }
 
 function patchHome(docRoot) {
